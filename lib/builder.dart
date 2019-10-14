@@ -12,8 +12,14 @@ import 'package:build/build.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:source_gen/source_gen.dart';
 
+const String _header = '''
+// Generated file. Do not modify.
+//
+// This file is generated using the build_pubspec package.
+// For more information, go to: https://pub.dev/packages/build_pubspec''';
 
-Future<String> _pubspecSource(BuildStep buildStep, String versionFieldName) async {
+Future<String> _pubspecSource(
+    BuildStep buildStep, String versionFieldName) async {
   final assetId = AssetId(buildStep.inputId.package, 'pubspec.yaml');
   final content = await buildStep.readAsString(assetId);
   final pubspec = Pubspec.parse(content, sourceUrl: assetId.uri);
@@ -22,11 +28,7 @@ Future<String> _pubspecSource(BuildStep buildStep, String versionFieldName) asyn
     throw StateError('pubspec.yaml does not have a version defined.');
   }
   return '''
-// Generated file. Do not modify.
-//
-// This file is generated using the build_pubspec package.
-// For more information, go to: https://pub.dev/packages/build_pubspec
-
+$_header
 const String $versionFieldName = '${pubspec.version}';
 ''';
 }
@@ -44,7 +46,8 @@ String _versionFieldName(BuilderOptions options) =>
         : 'packageVersion';
 
 class _PubspecBuilder implements Builder {
-  _PubspecBuilder([BuilderOptions options]) : versionFieldName = _versionFieldName(options);
+  _PubspecBuilder([BuilderOptions options])
+      : versionFieldName = _versionFieldName(options);
 
   final String versionFieldName;
 

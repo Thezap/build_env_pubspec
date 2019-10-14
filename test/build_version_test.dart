@@ -32,19 +32,25 @@ void main() {
         buildPubspec(), _createPackageStub({'name': 'pkg', 'version': '1.0.0'}),
         outputs: {
           'pkg|lib/src/pubspec.dart': r'''
-// Generated code. Do not modify.
-const packageVersion = '1.0.0';
+// Generated file. Do not modify.
+//
+// This file is generated using the build_pubspec package.
+// For more information, go to: https://pub.dev/packages/build_pubspec
+const String packageVersion = '1.0.0';
 '''
         });
   });
   test('valid input with custom field', () async {
     await testBuilder(
-        buildPubspec(const BuilderOptions({'field_name': 'myVersion'})),
+        buildPubspec(const BuilderOptions({'version_field_name': 'myVersion'})),
         _createPackageStub({'name': 'pkg', 'version': '1.0.0'}),
         outputs: {
           'pkg|lib/src/pubspec.dart': r'''
-// Generated code. Do not modify.
-const myVersion = '1.0.0';
+// Generated file. Do not modify.
+//
+// This file is generated using the build_pubspec package.
+// For more information, go to: https://pub.dev/packages/build_pubspec
+const String myVersion = '1.0.0';
 '''
         });
   });
