@@ -1,0 +1,7 @@
+# Ignore built files
+lib/src/version.dart
+
+# Usual Dart ignore stuff
+.dart_tool/
+.packages
+pubspec.lock
