@@ -1,7 +1,7 @@
 WIP. Fork of build_version, soon to include all fields from the pubspec.
 
 ![Pub](https://img.shields.io/pub/v/build_pubspec.svg)
-[![Build Status](https://travis-ci.org/dartsidedev/build_pubspec.svg?branch=master)](https://travis-ci.org/dartsidedev/build_pubspec)
+[![Build Status](https://travis-ci.com/dartsidedev/build_pubspec.svg?branch=master)](https://travis-ci.com/dartsidedev/build_pubspec)
 
 Include the version of your package in our source code.
 
