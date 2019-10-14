@@ -1,5 +1,7 @@
-![Pub](https://img.shields.io/pub/v/build_version.svg)
-[![Build Status](https://travis-ci.org/kevmoo/build_version.svg?branch=master)](https://travis-ci.org/kevmoo/build_version)
+WIP. Fork of build_version, soon to include all fields from the pubspec.
+
+![Pub](https://img.shields.io/pub/v/build_pubspec.svg)
+[![Build Status](https://travis-ci.org/dartsidedev/build_pubspec.svg?branch=master)](https://travis-ci.org/dartsidedev/build_pubspec)
 
 Include the version of your package in our source code.
 
@@ -27,7 +29,7 @@ Include the version of your package in our source code.
     const packageVersion = '1.2.3';
     ```
 
-3. To customize the name of the version constant, a `build.yaml` option can be used.
+3. To customize the name of the constants, a `build.yaml`'s `option` can be used.
 
     ```yaml
     targets:
@@ -35,7 +37,7 @@ Include the version of your package in our source code.
         builders:
           build_version:
             options:
-              field_name: 'myVersion' # defaults to 'packageVersion'
+              version_field_name: 'myVersion' # defaults to 'packageVersion'
     ```
     
 4. It is also possible to generate the version string as a part of an existing library 
@@ -70,3 +72,10 @@ Include the version of your package in our source code.
     // Generated code. Do not modify.
     const packageVersion = '1.2.3';
     ```
+
+  
+# Acknowledgements
+
+This package is based on [`build_version`](https://pub.dev/packages/build_version). Thank you for the original author, [Kevin Moore](https://pub.dev/publishers/j832.com/packages). It also includes fixes to the original repository from [Alexey Knyazev](https://github.com/lexaknyazev/build_version/tree/custom-name-source-gen).
+
+If you find code or instructions that were not updated, open an issue, or ping me on [Twitter](https://twitter.com/serial_dev). I appreciate your help in making this package better.
