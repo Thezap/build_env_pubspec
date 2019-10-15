@@ -1,6 +1,8 @@
 name: build_pubspec_example
 description: This is an example description. Great job! Awesome package.
 publish_to: 'none'
+authors:
+  - Vince Varga <vince.varga@serial.dev>
 
 version: 0.1.2
 

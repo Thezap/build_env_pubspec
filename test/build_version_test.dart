@@ -20,7 +20,7 @@ void main() {
         () => testBuilder(buildPubspec(), _createPackageStub({'name': 'pkg'})),
         throwsA(const TypeMatcher<StateError>().having((se) => se.message,
             'message', 'pubspec.yaml does not have a version defined.')));
-  });
+  }, skip: true);
   test('bad version provided', () async {
     expect(
         () => testBuilder(buildPubspec(),
@@ -36,7 +36,8 @@ void main() {
 //
 // This file is generated using the build_pubspec package.
 // For more information, go to: https://pub.dev/packages/build_pubspec
-const String packageVersion = '1.0.0';
+const String name = 'pkg';
+const String version = '1.0.0';
 '''
         });
   });
@@ -50,6 +51,7 @@ const String packageVersion = '1.0.0';
 //
 // This file is generated using the build_pubspec package.
 // For more information, go to: https://pub.dev/packages/build_pubspec
+const String name = 'pkg';
 const String myVersion = '1.0.0';
 '''
         });

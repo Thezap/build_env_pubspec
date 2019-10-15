@@ -1,11 +1,19 @@
 WIP. Fork of build_version, soon to include all fields from the pubspec.
 
+explain when to use this: maybe if you publish multiple plugins and you want to include the example app's info?
+
+example apps (or integration test cases):
+* simple
+* renamed
+* .g.dart
+* flutter
+
 ![Pub](https://img.shields.io/pub/v/build_pubspec.svg)
 [![Build Status](https://travis-ci.com/dartsidedev/build_pubspec.svg?branch=master)](https://travis-ci.com/dartsidedev/build_pubspec)
 
 Include the version of your package in our source code.
 
-1. Add `build_version` to `pubspec.yaml`. Also make sure there is a `version`
+1. Add `build_pubspec` to `pubspec.yaml`.
    field.
 
     ```yaml
@@ -13,7 +21,7 @@ Include the version of your package in our source code.
     version: 1.2.3
     dev_dependencies:
       build_runner: ^1.0.0
-      build_version: ^2.0.0
+      build_pubspec: ...
     ```
 
 2. Run a build.
@@ -22,11 +30,11 @@ Include the version of your package in our source code.
     > pub run build_runner build
     ```
 
-    `lib/src/version.dart` will be generated with content:
+    `lib/src/pubspec.dart` will be generated with content:
 
     ```dart
     // Generated code. Do not modify.
-    const packageVersion = '1.2.3';
+    const version = '1.2.3';
     ```
 
 3. To customize the name of the constants, a `build.yaml`'s `option` can be used.
@@ -35,9 +43,9 @@ Include the version of your package in our source code.
     targets:
       $default:
         builders:
-          build_version:
+          build_pubspec:
             options:
-              version_field_name: 'myVersion' # defaults to 'packageVersion'
+              version_field_name: 'myVersion' # defaults to 'version'
     ```
     
 4. It is also possible to generate the version string as a part of an existing library 
@@ -48,13 +56,13 @@ Include the version of your package in our source code.
     targets:
       $default:
         builders:
-          build_version:
+          build_pubspec:
             enabled: false
-          build_version|build_version_part:
+          build_pubspec|build_pubspec_part:
             enabled: true
             generate_for: ['lib/src/my_lib.dart']
             options:
-              field_name: 'myLibraryVersion' # defaults to 'packageVersion'
+              version_field_name: 'myLibraryVersion' # defaults to 'packageVersion'
     ```
 
    Assuming that `lib/src/my_lib.dart` contains `part 'my_lib.version.g.dart';`,

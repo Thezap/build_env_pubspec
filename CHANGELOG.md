@@ -1,5 +1,13 @@
 # `build_pubspec`
 
+## 0.1.1
+
+Add new supported fields: `authors`, `description`, `documentation`, `homepage`, `issueTracker`, `name`, `repository`.
+
+In case the field is not present in the pubspec, the builder just skips it.
+
+The code is still quite messy and the documentation is lacking.
+
 ## 0.1.0
 
 Create new package, `build_pubspec` based on `build_version` package.
