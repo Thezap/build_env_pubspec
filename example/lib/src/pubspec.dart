@@ -7,5 +7,5 @@ const List<String> authors = [
 ];
 const String description =
     '''This is an example description. Great job! Awesome package.''';
-const String name = 'build_pubspec_example';
-const String version = '0.1.2';
+const String name = '''build_pubspec_example''';
+const String version = '''0.1.2''';
