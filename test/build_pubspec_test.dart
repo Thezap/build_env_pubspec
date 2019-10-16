@@ -6,48 +6,46 @@ import 'package:build_pubspec/builder.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:test/test.dart';
 
-final _isParsedYamlException = const TypeMatcher<ParsedYamlException>();
+// Simple wrapper function to make test cases more readable
+Future<dynamic> Function() build({
+  Map<String, String> pubspecContent,
+  String expectedOutput,
+  Map<String, dynamic> config,
+}) {
+  return () {
+    return testBuilder(
+      buildPubspec(BuilderOptions(config)),
+      <String, String>{'pkg|pubspec.yaml': jsonEncode(pubspecContent)},
+      outputs: {'pkg|lib/src/pubspec.dart': expectedOutput},
+    );
+  };
+}
+
+const _parsedYamlException = TypeMatcher<ParsedYamlException>();
 
 void main() {
   test('no name provided', () {
     expect(
-      () {
-        return testBuilder(
-          buildPubspec(),
-          _createPackageStub(
-            {
-              'version': '1.0.0',
-            },
-          ),
-        );
-      },
-      throwsA(_isParsedYamlException),
+      build(pubspecContent: {'version': '1.0.0'}),
+      throwsA(_parsedYamlException),
     );
   });
 
   test('bad version provided', () {
     expect(
-      () {
-        return testBuilder(
-          buildPubspec(),
-          _createPackageStub(
-            {
-              'name': 'pkg',
-              'version': 'not a version',
-            },
-          ),
-        );
-      },
-      throwsA(_isParsedYamlException),
+      build(
+        pubspecContent: {
+          'name': 'pkg',
+          'version': 'not a version',
+        },
+      ),
+      throwsA(_parsedYamlException),
     );
   });
 
-  test('valid input', () {
-    return testBuilder(
-      buildPubspec(),
-      _createPackageStub({'name': 'pkg', 'version': '1.0.0'}),
-      outputs: {
-        'pkg|lib/src/pubspec.dart': r"""
+  test('valid input', build(
+      pubspecContent: {'name': 'pkg', 'version': '1.0.0'},
+      expectedOutput: r"""
 // Generated file. Do not modify.
 //
 // This file is generated using the build_pubspec package.
@@ -55,28 +53,18 @@ void main() {
 const String name = '''pkg''';
 const String version = '''1.0.0''';
 """
-      },
-    );
-  });
+    ));
 
-  test('valid input with custom field', () {
-    return testBuilder(
-      buildPubspec(const BuilderOptions({'version_field_name': 'myVersion'})),
-      _createPackageStub({'name': 'pkg', 'version': '1.0.0'}),
-      outputs: {
-        'pkg|lib/src/pubspec.dart': r"""
+  test('valid input with custom field', build(
+    config: {'version_field_name': 'myVersion'},
+    pubspecContent: {'name': 'pkg', 'version': '1.0.0'},
+    expectedOutput: r"""
 // Generated file. Do not modify.
 //
 // This file is generated using the build_pubspec package.
 // For more information, go to: https://pub.dev/packages/build_pubspec
 const String name = '''pkg''';
 const String myVersion = '''1.0.0''';
-"""
-      },
-    );
-  });
+""",
+  ));
 }
-
-Map<String, String> _createPackageStub(Map<String, dynamic> pubspecContent) => {
-      'pkg|pubspec.yaml': jsonEncode(pubspecContent),
-    };
