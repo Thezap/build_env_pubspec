@@ -37,7 +37,7 @@ Future<String> _pubspecSource({
 
   if (pubspec.description != null) {
     buff.writeln(
-        """const String ${fields.descriptionFieldName} = '''${pubspec.description}'''; """);
+        """const String ${fields.descriptionFieldName} = '''${pubspec.description}''';""");
   }
 
   if (pubspec.documentation != null) {
@@ -82,6 +82,16 @@ Builder buildPubspecPart([BuilderOptions options]) {
   );
 }
 
+String _snakeToCamel(String snake) {
+  return snake
+      .split('_')
+      .asMap()
+      .map((i, w) => MapEntry(i,
+          i == 0 ? w : '${w.substring(0, 1).toUpperCase()}${w.substring(1)}'))
+      .values
+      .join('');
+}
+
 class _FieldNames {
   _FieldNames(Map<String, dynamic> config)
       : authorsFieldName = _f(config, 'authors'),
@@ -98,9 +108,10 @@ class _FieldNames {
   }
 
   static String _f(Map<String, dynamic> config, String name) {
-    if (config == null) return name;
+    final field = _snakeToCamel(name);
+    if (config == null) return field;
     final key = '${name}_field_name';
-    return config[key] as String ?? name;
+    return config[key] as String ?? field;
   }
 
   final String authorsFieldName;
@@ -123,7 +134,10 @@ class _PubspecBuilder implements Builder {
   Future build(BuildStep buildStep) async {
     await buildStep.writeAsString(
       AssetId(buildStep.inputId.package, 'lib/src/pubspec.dart'),
-      await _pubspecSource(buildStep: buildStep, fields: fields),
+      await _pubspecSource(
+        buildStep: buildStep,
+        fields: fields,
+      ),
     );
   }
 
@@ -139,6 +153,10 @@ class _PubspecPartGenerator extends Generator {
   final _FieldNames fields;
 
   @override
-  Future<String> generate(LibraryReader library, BuildStep buildStep) =>
-      _pubspecSource(buildStep: buildStep, fields: fields);
+  Future<String> generate(LibraryReader library, BuildStep buildStep) {
+    return _pubspecSource(
+      buildStep: buildStep,
+      fields: fields,
+    );
+  }
 }
