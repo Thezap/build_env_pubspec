@@ -1,6 +1,57 @@
-WIP. Fork of build_version, soon to include all fields from the pubspec.
+# `build_pubspec`
 
-explain when to use this: maybe if you publish multiple plugins and you want to include the example app's info?
+This package helps you convert fields from your `pubspec.yaml` file into Dart code. Based on the fields in your pubspec, this package will generate Dart code so that you can access these fields easily from your Flutter, AngularDart, or backend app.
+
+![Pub](https://img.shields.io/pub/v/build_pubspec.svg)
+[![Build Status](https://travis-ci.com/dartsidedev/build_pubspec.svg?branch=master)](https://travis-ci.com/dartsidedev/build_pubspec)
+
+## Common use-cases
+
+* Display current version of your app to your users
+* Add build information to your logs, analytics or backend calls
+* Create example apps for your Flutter packages and plugins with an up-to-date description and links to your docs, issue tracker and repository
+
+Do you have another use case for this package? [Tell me about it on Twitter](https://twitter.com/serial_dev) or [open a issue on GitHub](https://github.com/dartsidedev/build_pubspec). I appreciate your help in making this package better.
+
+## Usage
+
+1. Add `build_pubspec` to your `pubspec.yaml` as **`dev_dependency`**. Make sure [`build_runner`](https://pub.dev/packages/build_runner) is also listed as development dependency.
+
+    ```yaml
+    name: your_package
+    version: 1.2.3
+    authors:
+      - McPubby Pubspec <mcpubby.pubspec@example.com>
+    dev_dependencies:
+      build_runner: ^1.0.0
+      # Look up latest version on https://pub.dev/packages/build_pubspec#-changelog-tab-
+      build_pubspec: ^1.0.0
+    ```
+
+2. Run a build.
+
+    ```console
+    $ pub run build_runner build
+    ```
+
+    `lib/src/pubspec.dart` will be generated with content
+
+    ```console
+    $ cat lib/src/pubspec.dart
+    # TODO: once package's stable, include file content
+    ```
+
+### Customization
+
+#### Change output file
+
+#### Change field names
+
+#### Part files
+
+## Examples
+
+I maintain various examples for this package. Check them all out at TODO: link.
 
 example apps (or integration test cases):
 * simple
@@ -8,34 +59,7 @@ example apps (or integration test cases):
 * .g.dart
 * flutter
 
-![Pub](https://img.shields.io/pub/v/build_pubspec.svg)
-[![Build Status](https://travis-ci.com/dartsidedev/build_pubspec.svg?branch=master)](https://travis-ci.com/dartsidedev/build_pubspec)
 
-Include the version of your package in our source code.
-
-1. Add `build_pubspec` to `pubspec.yaml`.
-   field.
-
-    ```yaml
-    name: my_pkg
-    version: 1.2.3
-    dev_dependencies:
-      build_runner: ^1.0.0
-      build_pubspec: ...
-    ```
-
-2. Run a build.
-
-    ```console
-    > pub run build_runner build
-    ```
-
-    `lib/src/pubspec.dart` will be generated with content:
-
-    ```dart
-    // Generated code. Do not modify.
-    const version = '1.2.3';
-    ```
 
 3. To customize the name of the constants, a `build.yaml`'s `option` can be used.
 
@@ -84,6 +108,4 @@ Include the version of your package in our source code.
   
 # Acknowledgements
 
-This package is based on [`build_version`](https://pub.dev/packages/build_version). Thank you for the original author, [Kevin Moore](https://pub.dev/publishers/j832.com/packages). It also includes fixes to the original repository from [Alexey Knyazev](https://github.com/lexaknyazev/build_version/tree/custom-name-source-gen).
-
-If you find code or instructions that were not updated, open an issue, or ping me on [Twitter](https://twitter.com/serial_dev). I appreciate your help in making this package better.
+This package is based on [`build_version`](https://pub.dev/packages/build_version). Thank you for the original author, [Kevin Moore](https://pub.dev/publishers/j832.com/packages). It also includes fixes to the original repository from [Alexey Knyazev](https://github.com/lexaknyazev/build_version/tree/custom-name-source-gen). I could not have created this package without their original work.
