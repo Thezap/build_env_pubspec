@@ -1,6 +1,11 @@
 # `build_pubspec`
 
-## 0.1.1
+## 0.1.2 - October 17, 2019
+
+* Add option to override destination file.
+* Support custom field names in destination Dart code for all supported fields
+
+## 0.1.1 - October 15, 2019
 
 Add new supported fields: `authors`, `description`, `documentation`, `homepage`, `issueTracker`, `name`, `repository`.
 
@@ -8,7 +13,7 @@ In case the field is not present in the pubspec, the builder just skips it.
 
 The code is still quite messy and the documentation is lacking.
 
-## 0.1.0
+## 0.1.0 - October 14, 2019
 
 Create new package, `build_pubspec` based on `build_version` package.
 

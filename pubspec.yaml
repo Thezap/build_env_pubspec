@@ -1,6 +1,6 @@
 name: build_pubspec
 description: Extract pubspec details (such as package version, author and description) into Dart code.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/dartsidedev/build_pubspec
 author: Vince Varga <vince.varga@dartside.dev>
 

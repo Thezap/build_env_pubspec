@@ -5,6 +5,7 @@
 const List<String> authors = [
   'Vince Varga <vince.varga@serial.dev>',
 ];
-const String description = '''This is an example description. Great job! Awesome package.''';
+const String description =
+    '''This is an example description. Great job! Awesome package.''';
 const String name = '''build_pubspec_example''';
 const String version = '''0.1.2''';

@@ -134,7 +134,7 @@ String _destinationFromBuilderOptions(BuilderOptions options) {
 class _PubspecBuilder implements Builder {
   _PubspecBuilder([BuilderOptions options])
       : fields = _FieldNames.fromBuilderOptions(options),
-      destination = _destinationFromBuilderOptions(options);
+        destination = _destinationFromBuilderOptions(options);
 
   final _FieldNames fields;
   final String destination;
@@ -152,7 +152,9 @@ class _PubspecBuilder implements Builder {
 
   @override
   Map<String, List<String>> get buildExtensions {
-    return {'pubspec.yaml': [destination]};
+    return {
+      'pubspec.yaml': [destination]
+    };
   }
 }
 
