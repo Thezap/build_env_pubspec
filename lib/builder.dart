@@ -124,16 +124,25 @@ class _FieldNames {
   final String versionFieldName;
 }
 
+String _destinationFromBuilderOptions(BuilderOptions options) {
+  final defaultDestination = 'lib/src/pubspec.dart';
+  if (options == null) return defaultDestination;
+  if (options.config == null) return defaultDestination;
+  return options.config['destination_file'] as String ?? defaultDestination;
+}
+
 class _PubspecBuilder implements Builder {
   _PubspecBuilder([BuilderOptions options])
-      : fields = _FieldNames.fromBuilderOptions(options);
+      : fields = _FieldNames.fromBuilderOptions(options),
+      destination = _destinationFromBuilderOptions(options);
 
   final _FieldNames fields;
+  final String destination;
 
   @override
   Future build(BuildStep buildStep) async {
     await buildStep.writeAsString(
-      AssetId(buildStep.inputId.package, 'lib/src/pubspec.dart'),
+      AssetId(buildStep.inputId.package, destination),
       await _pubspecSource(
         buildStep: buildStep,
         fields: fields,
@@ -142,9 +151,9 @@ class _PubspecBuilder implements Builder {
   }
 
   @override
-  final buildExtensions = const {
-    r'$lib$': ['src/pubspec.dart']
-  };
+  Map<String, List<String>> get buildExtensions {
+    return {'pubspec.yaml': [destination]};
+  }
 }
 
 class _PubspecPartGenerator extends Generator {
