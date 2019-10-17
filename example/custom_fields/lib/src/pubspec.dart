@@ -7,5 +7,4 @@ const List<String> betterAuthors = [
 ];
 const String betterDescription =
     '''This is an example description. Great job! Awesome package.''';
-const String betterName = '''build_pubspec_example''';
 const String betterVersion = '''0.1.3''';

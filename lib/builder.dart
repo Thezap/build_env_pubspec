@@ -35,37 +35,37 @@ Future<String> _pubspecSource({
     buff.writeln('''];''');
   }
 
-  if (pubspec.description != null) {
+  if (pubspec.description != null && fields.descriptionFieldName.isNotEmpty) {
     buff.writeln(
         """const String ${fields.descriptionFieldName} = '''${pubspec.description}''';""");
   }
 
-  if (pubspec.documentation != null) {
+  if (pubspec.documentation != null && fields.documentationFieldName.isNotEmpty) {
     buff.writeln(
         """const String ${fields.documentationFieldName} = '''${pubspec.documentation}''';""");
   }
 
-  if (pubspec.homepage != null) {
+  if (pubspec.homepage != null && fields.homepageFieldName.isNotEmpty) {
     buff.writeln(
         """const String ${fields.homepageFieldName} = '''${pubspec.homepage}''';""");
   }
 
-  if (pubspec.issueTracker != null) {
+  if (pubspec.issueTracker != null && fields.issueTrackerFieldName.isNotEmpty) {
     buff.writeln(
         """const String ${fields.issueTrackerFieldName} = '''${pubspec.issueTracker}''';""");
   }
 
-  if (pubspec.name != null) {
+  if (pubspec.name != null && fields.nameFieldName.isNotEmpty) {
     buff.writeln(
         """const String ${fields.nameFieldName} = '''${pubspec.name}''';""");
   }
 
-  if (pubspec.repository != null) {
+  if (pubspec.repository != null && fields.repositoryFieldName.isNotEmpty) {
     buff.writeln(
         """const String ${fields.repositoryFieldName} = '''${pubspec.repository}''';""");
   }
 
-  if (pubspec.version != null) {
+  if (pubspec.version != null && fields.versionFieldName.isNotEmpty) {
     buff.writeln(
         """const String ${fields.versionFieldName} = '''${pubspec.version}''';""");
   }

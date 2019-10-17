@@ -8,6 +8,7 @@ targets:
           documentation_field_name: betterDocumentation
           homepage_field_name: betterHomepage
           issue_tracker_field_name: betterIssueTracker
-          name_field_name: betterName
+          # name field is intentionally left empty to not add it to the output dart file
+          name_field_name: ''
           repository_field_name: betterRepository
           version_field_name: betterVersion
