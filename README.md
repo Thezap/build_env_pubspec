@@ -6,8 +6,9 @@ This package helps you convert fields from your `pubspec.yaml` file into Dart co
 
 ## Common use-cases
 
-* Display current version of your app to your users
+* Display current version of your app to your users in your mobile app
 * Add build information to your logs, analytics or backend calls
+* Create command-line apps and fill out the `help` and `version` commands automatically
 * Create example apps for your Flutter packages and plugins with an up-to-date description and links to your docs, issue tracker and repository
 
 Do you have another use case for this package? [Tell me about it on Twitter](https://twitter.com/serial_dev) or [open a issue on GitHub](https://github.com/dartsidedev/build_pubspec). I appreciate your help in making this package better.
