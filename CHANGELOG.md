@@ -1,15 +1,13 @@
-# `build_pubspec`
-
-## 0.1.2-dev1 - August 23, 2020
+## 0.1.2-dev1
 
 * Let's get this package back in shape...
 
-## 0.1.2 - October 17, 2019
+## 0.1.2
 
 * Add option to override destination file.
 * Support custom field names in destination Dart code for all supported fields
 
-## 0.1.1 - October 15, 2019
+## 0.1.1
 
 Add new supported fields: `authors`, `description`, `documentation`, `homepage`, `issueTracker`, `name`, `repository`.
 
@@ -17,7 +15,7 @@ In case the field is not present in the pubspec, the builder just skips it.
 
 The code is still quite messy and the documentation is lacking.
 
-## 0.1.0 - October 14, 2019
+## 0.1.0
 
 Create new package, `build_pubspec` based on `build_version` package.
 
@@ -25,11 +23,10 @@ Create new package, `build_pubspec` based on `build_version` package.
 * Improve documentation
 * Add example project
 
-# `build_version`
-
 This package is based on [`kevmoo/build_version`](https://github.com/kevmoo/build_version). Here's the original change log.
 
-## `build_version: 2.0.1`
+```
+## 2.0.1
 
 * Support the latest `package:build_config`.
 
@@ -40,15 +37,16 @@ This package is based on [`kevmoo/build_version`](https://github.com/kevmoo/buil
 * Users can now customize the version constant name and the generated 
   version file could be a part of an existing package library. 
 
-## `build_version: 2.0.0`
+## 2.0.0
 
 * The builder now runs when `build_version` is a dependency. `build.yaml`
   changes are no longer required.
 
-## `build_version: 1.0.1`
+## 1.0.1
 
 * Support `package:build_runner` `v1.0.0`.
 
-## `build_version: 1.0.0`
+## 1.0.0
 
 * Initial version, created by Stagehand
+```
