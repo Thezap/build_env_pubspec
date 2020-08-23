@@ -34,12 +34,43 @@ Do you have another use case for this package? [Tell me about it on Twitter](htt
     $ pub run build_runner build
     ```
 
-    `lib/src/pubspec.dart` will be generated with content
+    `lib/src/pubspec.dart` will be generated with content, based on the `pubspec.yaml file`
+
+    ```console
+    $ cat pubspec.dart
+    name: build_pubspec_example
+    description: This is an example description. Great job! Awesome package.
+    publish_to: 'none'
+    authors:
+      - Vince Varga <vince.varga@dartside.dev>
+
+    version: 0.1.2
+
+    environment:
+      sdk: ">=2.1.0 <3.0.0"
+
+    dev_dependencies:
+      build_runner: ^1.0.0
+      build_pubspec:
+        path: ../../
+    ```
 
     ```console
     $ cat lib/src/pubspec.dart
-    # TODO: once package's stable, include file content
+    // Generated file. Do not modify.
+    //
+    // This file is generated using the build_pubspec package.
+    // For more information, go to: https://pub.dev/packages/build_pubspec
+    const List<String> authors = [
+      'Vince Varga <vince.varga@dartside.dev>',
+    ];
+    const String description =
+        '''This is an example description. Great job! Awesome package.''';
+    const String name = '''build_pubspec_example''';
+    const String version = '''0.1.2''';
     ```
+
+    You can now include this Dart file in your app code if you want to reference a field from your `pubspec.yaml` file.
 
 ### Customization
 
