@@ -9,7 +9,7 @@ builders:
   build_pubspec:
     import: "package:build_pubspec/builder.dart"
     builder_factories: ["buildPubspec"]
-    build_extensions: {"pubspec.yaml": [".dart"]}
+    build_extensions: {"$lib$": [".dart"]}
     build_to: source
     auto_apply: dependents
   build_pubspec_part:

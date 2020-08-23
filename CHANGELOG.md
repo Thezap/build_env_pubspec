@@ -1,6 +1,6 @@
-## 0.1.2-dev1
+## 0.2.0
 
-* Let's get this package back in shape...
+Improved docs and examples.
 
 ## 0.1.2
 

@@ -1,0 +1,12 @@
+targets:
+  $default:
+    builders:
+      build_pubspec:
+        enabled: false
+      build_pubspec|build_pubspec_part:
+        enabled: true
+        generate_for: ['lib/src/example.dart']
+        options:
+          version_field_name: 'exampleVersion' # defaults to 'packageVersion'
+
+# Check the pubspec.yaml dependency overrides!!!
