@@ -1,8 +1,7 @@
 name: build_pubspec
 description: Extract pubspec details (such as package version, author and description) into Dart code.
-version: 0.1.2
+version: 0.1.2-dev1
 homepage: https://github.com/dartsidedev/build_pubspec
-author: Vince Varga <vince.varga@dartside.dev>
 
 environment:
   sdk: '>=2.3.0 <3.0.0'
@@ -11,7 +10,7 @@ dependencies:
   build: '>=0.12.1 <2.0.0'
   pubspec_parse: ^0.1.2+2
   source_gen: ^0.9.4
-
+  meta: ^1.0.0
   ## TODO(vargavince91): Do we still need this?
   # Not imported in code, but used to constrain `build.yaml` requirements
   build_config: '>=0.3.0 <0.5.0'

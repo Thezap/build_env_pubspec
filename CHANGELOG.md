@@ -1,5 +1,9 @@
 # `build_pubspec`
 
+## 0.1.2-dev1 - August 23, 2020
+
+* Let's get this package back in shape...
+
 ## 0.1.2 - October 17, 2019
 
 * Add option to override destination file.
