@@ -1,6 +1,6 @@
 name: build_pubspec
 description: Extract pubspec details (such as package version, author and description) into Dart code.
-version: 0.2.0
+version: 0.2.0+1
 homepage: https://github.com/dartsidedev/build_pubspec
 environment:
   sdk: '>=2.3.0 <3.0.0'

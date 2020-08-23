@@ -1,17 +1,17 @@
 # `build_pubspec`
 
-This package helps you convert fields from your `pubspec.yaml` file into Dart code. Based on the fields in your pubspec, this package will generate Dart code so that you can access these fields easily from your Flutter, AngularDart, or backend app.
+This package helps you convert fields from your `pubspec.yaml` file into Dart code.
+Based on the fields in your pubspec, this package will generate Dart code so
+that you can access these fields easily from your Flutter, AngularDart, command-line tool, or backend app.
 
 ![Pub](https://img.shields.io/pub/v/build_pubspec.svg)
 
 ## Common use-cases
 
-* Display current version of your app to your users in your mobile app
-* Add build information to your logs, analytics or backend calls
-* Create command-line apps and fill out the `help` and `version` commands automatically
-* Create example apps for your Flutter packages and plugins with an up-to-date description and links to your docs, issue tracker and repository
-
-Do you have another use case for this package? [Tell me about it on Twitter](https://twitter.com/serial_dev) or [open a issue on GitHub](https://github.com/dartsidedev/build_pubspec). I appreciate your help in making this package better.
+* Create command-line apps and fill out the `help` headline and `version` commands automatically
+* Create beautiful example apps for your Flutter packages and plugins with an always-up-to-date description and links to your docs, issue tracker and repository
+* Display the current version of your app to your users in your mobile app
+* Add app version to your logs, analytics or backend calls
 
 ## Usage
 
@@ -79,21 +79,21 @@ If a key is not present in the `pubspec.yaml`, it will not be part of the output
 If you wish to skip a key, set its field name option to empty string.
 
 ```yaml
-    targets:
-      $default:
-        builders:
-          build_pubspec:
-            options:
-              authors_field_name: betterAuthors
-              description_field_name: betterDescription
-              documentation_field_name: betterDocumentation
-              homepage_field_name: betterHomepage
-              issue_tracker_field_name: betterIssueTracker
-              # name field is intentionally left empty in this example to
-              # demo how to skip the name in the output dart file.
-              name_field_name: ''
-              repository_field_name: betterRepository
-              version_field_name: betterVersion
+targets:
+  $default:
+    builders:
+      build_pubspec:
+        options:
+          authors_field_name: betterAuthors
+          description_field_name: betterDescription
+          documentation_field_name: betterDocumentation
+          homepage_field_name: betterHomepage
+          issue_tracker_field_name: betterIssueTracker
+          # name field is intentionally left empty in this example to
+          # demo how to skip the name in the output dart file.
+          name_field_name: ''
+          repository_field_name: betterRepository
+          version_field_name: betterVersion
 ```
 
 ### Change output file
@@ -135,13 +135,13 @@ Make sure your `lib/src/example.dart` contains `part 'example.version.g.dart';`,
 
 Once you run `pub run build_runner build`, the part file will be generated into `lib/src/my_lib.version.g.dart`.
 
-# TODOs
-
-## CI/CD
-
-* analyze, lint, run tests, all the usual stuff
-* go to example folders and make sure the examples run correctly, make sure no git changes
-
 # Acknowledgements
 
 This package is based on [`build_version`](https://pub.dev/packages/build_version). Thank you for the original author, [Kevin Moore](https://pub.dev/publishers/j832.com/packages). It also includes fixes to the original repository from [Alexey Knyazev](https://github.com/lexaknyazev/build_version/tree/custom-name-source-gen). I could not have created this package without their original work.
+
+# TODOs
+
+I just got rid of Travis, so I need to take care of a new CI/CD pipeline. GitHub Actions.
+
+* analyze, lint, run tests, all the usual stuff
+* go to example folders and make sure the examples run correctly, make sure no git changes
