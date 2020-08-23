@@ -3,7 +3,6 @@
 This package helps you convert fields from your `pubspec.yaml` file into Dart code. Based on the fields in your pubspec, this package will generate Dart code so that you can access these fields easily from your Flutter, AngularDart, or backend app.
 
 ![Pub](https://img.shields.io/pub/v/build_pubspec.svg)
-[![Build Status](https://travis-ci.com/dartsidedev/build_pubspec.svg?branch=master)](https://travis-ci.com/dartsidedev/build_pubspec)
 
 ## Common use-cases
 
