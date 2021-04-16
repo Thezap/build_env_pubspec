@@ -29,7 +29,7 @@ class EnvPubspec extends Pubspec {
     Map<String, Dependency>? dependencies,
     Map<String, Dependency>? devDependencies,
     Map<String, Dependency>? dependencyOverrides,
-    Map<String, dynamic>? flutter,
+    this.flutter,
   }) : super(
           name,
           version: version,
@@ -45,8 +45,12 @@ class EnvPubspec extends Pubspec {
           dependencies: dependencies,
           devDependencies: devDependencies,
           dependencyOverrides: dependencyOverrides,
-          flutter: flutter,
         );
+
+  @override
+  @JsonKey(fromJson: _parseFlutter)
+  final Map<String, dynamic>? flutter;
+
 
   factory EnvPubspec.fromJson(Map json, {bool lenient = false}) {
     if (lenient) {
@@ -117,4 +121,8 @@ Map<String, VersionConstraint> _environmentMap(Map? source) {
 
 Map<String, String> _parseEnv(Map source) {
   return Map<String, String>.from(source);
+}
+
+Map<String, dynamic> _parseFlutter(Map source) {
+  return Map<String, dynamic>.from(source);
 }

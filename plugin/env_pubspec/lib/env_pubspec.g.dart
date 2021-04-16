@@ -28,6 +28,6 @@ EnvPubspec _$EnvPubspecFromJson(Map<String, dynamic> json) {
     dependencies: parseDeps(json['dependencies'] as Map?),
     devDependencies: parseDeps(json['devDependencies'] as Map?),
     dependencyOverrides: parseDeps(json['dependencyOverrides'] as Map?),
-    flutter: json['flutter'] as Map<String, dynamic>?,
+    flutter: _parseFlutter(json['flutter'] as Map),
   );
 }
