@@ -8,9 +8,10 @@
 library builder;
 
 import 'dart:async';
+import 'dart:io';
 import 'package:build/build.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:env_pubspec/env_pubspec.dart';
 
 Builder buildPubspec([BuilderOptions options]) {
   return _PubspecBuilder(options);
@@ -59,59 +60,77 @@ class _PubspecPartGenerator extends Generator {
 Future<String> _build(BuildStep buildStep, _FieldsContainer fields) async {
   final assetId = AssetId(buildStep.inputId.package, 'pubspec.yaml');
   final content = await buildStep.readAsString(assetId);
-  final pubspec = Pubspec.parse(content, sourceUrl: assetId.uri);
+  final pubspec = EnvPubspec.parse(content, sourceUrl: assetId.uri);
   final buff = StringBuffer();
   const _header =
       '''// Generated file. Do not modify.\n//\n// This file is generated using the build_pubspec package.\n// For more information, go to: https://pub.dev/packages/build_pubspec''';
   buff.writeln(_header);
 
-  if (pubspec.authors != null &&
-      pubspec.authors.isNotEmpty &&
-      fields.authorsFieldName.isNotEmpty) {
-    buff.writeln('''const List<String> ${fields.authorsFieldName} = [''');
-    final writeAuthor = (author) => buff.writeln('''  '$author',''');
+  buff.writeln('''class Pubspec {''');
+
+  if (pubspec.authors != null && pubspec.authors.isNotEmpty && fields.authorsFieldName.isNotEmpty) {
+    buff.writeln('''  static const List<String> ${fields.authorsFieldName} = [''');
+    final writeAuthor = (author) => buff.writeln('''    '$author',''');
     pubspec.authors.forEach(writeAuthor);
-    buff.writeln('''];''');
+    buff.writeln('''  ];''');
   }
 
   if (pubspec.description != null && fields.descriptionFieldName.isNotEmpty) {
-    buff.writeln(
-        """const String ${fields.descriptionFieldName} = '''${pubspec.description}''';""");
+    buff.writeln("""  static const String ${fields.descriptionFieldName} = '''${pubspec.description}''';""");
   }
 
-  if (pubspec.documentation != null &&
-      fields.documentationFieldName.isNotEmpty) {
-    buff.writeln(
-        """const String ${fields.documentationFieldName} = '''${pubspec.documentation}''';""");
+  if (pubspec.documentation != null && fields.documentationFieldName.isNotEmpty) {
+    buff.writeln("""  static const String ${fields.documentationFieldName} = '''${pubspec.documentation}''';""");
   }
 
   if (pubspec.homepage != null && fields.homepageFieldName.isNotEmpty) {
-    buff.writeln(
-        """const String ${fields.homepageFieldName} = '''${pubspec.homepage}''';""");
+    buff.writeln("""  static const String ${fields.homepageFieldName} = '''${pubspec.homepage}''';""");
   }
 
   if (pubspec.issueTracker != null && fields.issueTrackerFieldName.isNotEmpty) {
-    buff.writeln(
-        """const String ${fields.issueTrackerFieldName} = '''${pubspec.issueTracker}''';""");
+    buff.writeln("""  static const String ${fields.issueTrackerFieldName} = '''${pubspec.issueTracker}''';""");
   }
 
   if (pubspec.name != null && fields.nameFieldName.isNotEmpty) {
-    buff.writeln(
-        """const String ${fields.nameFieldName} = '''${pubspec.name}''';""");
+    buff.writeln("""  static const String ${fields.nameFieldName} = '''${pubspec.name}''';""");
   }
 
   if (pubspec.repository != null && fields.repositoryFieldName.isNotEmpty) {
-    buff.writeln(
-        """const String ${fields.repositoryFieldName} = '''${pubspec.repository}''';""");
+    buff.writeln("""  static const String ${fields.repositoryFieldName} = '''${pubspec.repository}''';""");
   }
 
   if (pubspec.version != null && fields.versionFieldName.isNotEmpty) {
-    buff.writeln(
-        """const String ${fields.versionFieldName} = '''${pubspec.version}''';""");
+    buff.writeln("""  static const String ${fields.versionFieldName} = '''${pubspec.version}''';""");
+  }
+  buff.writeln('''}''');
+
+
+  if (pubspec.env != null) {
+    buff.writeln('''class PubspecEnv {''');
+    await Future.forEach<MapEntry<String, String>>(pubspec.env.entries, (entries) async {
+      final key = entries.key;
+      final value = entries.value;
+      print('run for of $key');
+      final result = await Process.run('sh', ['-c', 'echo -n "$value"'], runInShell: true);
+      print('exite code ${result.exitCode}');
+      String out;
+      if (result.exitCode != 0) {
+        out = '''NullThrownError()''';
+        print(result.stderr);
+      } else {
+        out = result.stdout as String;
+        print('value of $out');
+      }
+      buff.writeln("""  static const String $key = '''$out''';""");
+    });
+
+    buff.writeln('''}''');
+    print(pubspec.env);
   }
 
   return buff.toString();
 }
+
 
 class _FieldsContainer {
   _FieldsContainer(Map<String, dynamic> config)
