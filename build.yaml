@@ -7,13 +7,13 @@ targets:
 
 builders:
   build_pubspec:
-    import: "package:build_pubspec/builder.dart"
+    import: "package:build_env_pubspec/builder.dart"
     builder_factories: ["buildPubspec"]
     build_extensions: {"$lib$": [".dart"]}
     build_to: source
     auto_apply: dependents
   build_pubspec_part:
-    import: "package:build_pubspec/builder.dart"
+    import: "package:build_env_pubspec/builder.dart"
     builder_factories: ["buildPubspecPart"]
     build_extensions: {"$lib$": [".pubspec.g.dart"]}
     build_to: source
