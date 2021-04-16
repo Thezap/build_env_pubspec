@@ -11,7 +11,9 @@ dependencies:
   # Not imported in code, but used to constrain `build.yaml` requirements
   build_config: ^0.4.7
   env_pubspec:
-    git: 'https://github.com/Thezap/build_env_pubspec/tree/master/plugin/env_pubspec'
+    git:
+      url: 'git@github.com:Thezap/build_env_pubspec.git'
+      path: plugin/env_pubspec
 
 
 dev_dependencies:
