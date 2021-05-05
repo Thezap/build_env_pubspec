@@ -12,7 +12,7 @@ dependencies:
   build_config: ^0.4.7
   env_pubspec:
     git:
-      url: 'git@github.com:Thezap/build_env_pubspec.git'
+      url: 'https://github.com/Thezap/build_env_pubspec.git'
       path: plugin/env_pubspec
 
 
