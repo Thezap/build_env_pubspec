@@ -9,23 +9,24 @@ library builder;
 
 import 'dart:async';
 import 'dart:io';
-import 'package:build/build.dart';
-import 'package:source_gen/source_gen.dart';
-import 'package:env_pubspec/env_pubspec.dart';
 
-Builder buildPubspec([BuilderOptions options]) {
+import 'package:build/build.dart';
+import 'package:env_pubspec/env_pubspec.dart';
+import 'package:source_gen/source_gen.dart';
+
+Builder buildPubspec([BuilderOptions? options]) {
   return _PubspecBuilder(options);
 }
 
-Builder buildPubspecPart([BuilderOptions options]) {
-  final fields = _FieldsContainer.fromBuilderOptions(options);
+Builder buildPubspecPart([BuilderOptions? options]) {
+  final fields = _FieldsContainer.fromBuilderOptions(options!);
   final generators = [_PubspecPartGenerator(fields)];
-  return PartBuilder(generators, '.pubspec.g.dart');
+  return PartBuilder(generators, '.pubspec.env.dart');
 }
 
 class _PubspecBuilder implements Builder {
-  _PubspecBuilder([BuilderOptions options])
-      : fields = _FieldsContainer.fromBuilderOptions(options),
+  _PubspecBuilder([BuilderOptions? options])
+      : fields = _FieldsContainer.fromBuilderOptions(options!),
         destination = _destinationFromBuilderOptions(options);
 
   final _FieldsContainer fields;
@@ -36,6 +37,12 @@ class _PubspecBuilder implements Builder {
     final id = AssetId(buildStep.inputId.package, destination);
     final contents = await _build(buildStep, fields);
     await buildStep.writeAsString(id, contents);
+
+    // add also static file with reexport
+    final staticId = AssetId(buildStep.inputId.package, 'lib/src/pubspec/pubspec.dart');
+    await buildStep.writeAsString(staticId, """"
+part '.pubspec.env.dart';
+    """);
   }
 
   @override
@@ -107,7 +114,7 @@ Future<String> _build(BuildStep buildStep, _FieldsContainer fields) async {
 
   if (pubspec.env != null) {
     buff.writeln('''class PubspecEnv {''');
-    await Future.forEach<MapEntry<String, String>>(pubspec.env.entries, (entries) async {
+    await Future.forEach<MapEntry<String, String>>(pubspec.env!.entries, (entries) async {
       final key = entries.key;
       final value = entries.value;
       print('run for of $key');
@@ -166,7 +173,7 @@ class _FieldsContainer {
 }
 
 String _destinationFromBuilderOptions(BuilderOptions options) {
-  const defaultDestination = 'lib/src/pubspec.dart';
+  const defaultDestination = 'lib/src/pubspec/pubspec.g.dart';
   if (options == null) return defaultDestination;
   if (options.config == null) return defaultDestination;
   return options.config['destination_file'] as String ?? defaultDestination;
