@@ -39,10 +39,10 @@ class _PubspecBuilder implements Builder {
     await buildStep.writeAsString(id, contents);
 
     // add also static file with reexport
-    final staticId = AssetId(buildStep.inputId.package, 'lib/src/pubspec/pubspec.dart');
+   /* final staticId = AssetId(buildStep.inputId.package, 'lib/src/pubspec/pubspec.dart');
     await buildStep.writeAsString(staticId, """"
 part '.pubspec.env.dart';
-    """);
+    """);*/
   }
 
   @override
@@ -151,7 +151,7 @@ class _FieldsContainer {
         versionFieldName = _f(config, 'version');
 
   factory _FieldsContainer.fromBuilderOptions(BuilderOptions options) {
-    return _FieldsContainer(options?.config ?? {});
+    return _FieldsContainer(options.config);
   }
 
   /// Build field name based on the field [name] and the passed in [config].
@@ -159,7 +159,7 @@ class _FieldsContainer {
     final field = _snakeToCamel(name);
     if (config == null) return field;
     final key = '${name}_field_name';
-    return config[key] as String ?? field;
+    return config[key] as String? ?? field;
   }
 
   final String authorsFieldName;
@@ -176,7 +176,7 @@ String _destinationFromBuilderOptions(BuilderOptions options) {
   const defaultDestination = 'lib/src/pubspec/pubspec.g.dart';
   if (options == null) return defaultDestination;
   if (options.config == null) return defaultDestination;
-  return options.config['destination_file'] as String ?? defaultDestination;
+  return options.config['destination_file'] as String? ?? defaultDestination;
 }
 
 String _snakeToCamel(String snake) {
