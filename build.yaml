@@ -15,5 +15,5 @@ builders:
   build_pubspec_part:
     import: "package:build_env_pubspec/builder.dart"
     builder_factories: ["buildPubspecPart"]
-    build_extensions: {"$lib$": [".pubspec.g.dart","pubspec.dart"]}
+    build_extensions: {"$lib$": [".pubspec.dart"]}
     build_to: source

@@ -173,7 +173,7 @@ class _FieldsContainer {
 }
 
 String _destinationFromBuilderOptions(BuilderOptions options) {
-  const defaultDestination = 'lib/src/pubspec/pubspec.g.dart';
+  const defaultDestination = 'lib/src/pubspec/pubspec.dart';
   if (options == null) return defaultDestination;
   if (options.config == null) return defaultDestination;
   return options.config['destination_file'] as String? ?? defaultDestination;
